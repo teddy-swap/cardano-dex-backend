@@ -8,25 +8,25 @@ let levelOverride = \(component : Text) -> \(level : LogLevel) -> {_1 = componen
 in
 { mainnetMode = False
 , ledgerSyncConfig =
-    { nodeSocketPath = "/var/lib/docker/volumes/cardano-vasil-docker_node-ipc/_data/node.socket"
+    { nodeSocketPath = "/mnt/CardanoTestnet/ipc/node.socket"
     , maxInFlight    = 256
     }
 , eventSourceConfig =
     { startAt =
-        { slot = 2729633
-        , hash = "815dafb374898811dc74069a8df8af7a98a80214203e89acdd6425c2e3db37c7"
+        { slot = 3208507
+        , hash = "017432b8c8d530396b6171ba85298c02a553c5214f5fa98d47a986f92d9e2c2f"
         }
     }
 , networkConfig = 
     { cardanoNetworkId = 2
     }
 , ledgerStoreConfig =
-    { storePath       = "./data/amm-executor"
+    { storePath       = "./ledgerStore"
     , createIfMissing = True
     }
-, nodeConfigPath = "/root/cardano-vasil-docker/config/preview/config.json"
+, nodeConfigPath = "/mnt/CardanoTestnet/config.json"
 , pstoreConfig =
-    { storePath       = "/path"
+    { storePath       = "./pStore"
     , createIfMissing = True
     }
 , backlogConfig =
@@ -35,23 +35,23 @@ in
     , suspendedPropability = 5
     }
 , backlogStoreConfig =
-    { storePath       = "/path"
+    { storePath       = "./backlogStore"
     , createIfMissing = True
     }
 , explorerConfig =
-    { explorerUri = "https://testnet-api.quickblue.io"
+    { explorerUri = "https://explorer.spectrum.fi"
     }
 , txSubmitConfig =
-    { nodeSocketPath = "/var/lib/docker/volumes/cardano-vasil-docker_node-ipc/_data/node.socket"
+    { nodeSocketPath = "/mnt/CardanoTestnet/ipc/node.socket"
     }
 , txAssemblyConfig =
     { feePolicy         = FeePolicy.Balance
     , collateralPolicy  = CollateralPolicy.Cover
-    , deafultChangeAddr = "addr_test1vr007v5nktnksje3gnm4aw4arwrkcl5rvvx4lwa3w8mtzxgf6c2nt"
+    , deafultChangeAddr = "addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv"
     }
 , secrets =
-    { secretFile = "/path/to/secret/file"
-    , keyPass    = "pass"
+    { secretFile = "secret"
+    , keyPass    = "test1234"
     }
 , loggingConfig =
     { rootLogLevel   = LogLevel.Info
