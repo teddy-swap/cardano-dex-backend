@@ -26,7 +26,8 @@ stack.yaml.lock
 explorer.dhall
 logs/
 data/
-backlogStore/
-psStore/
+log_backlog/
+log_pstore/
 wallet1TS.json
 config/
+log_ledger/
