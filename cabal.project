@@ -313,12 +313,6 @@ source-repository-package
     stubs/plutus-ghc-stub
     word-array
 
-source-repository-package
-  type: git
-  location: https://github.com/teddy-swap/cardano-dex-contracts.git
-  tag: c7fc4c98029a3d299a3853b6ca762fd1314a8109
-  subdir:
-    cardano-dex-contracts-offchain
 
 source-repository-package
   type: git
@@ -344,3 +338,10 @@ source-repository-package
     wallet-api
     datum-keeper-client
     algebra-core
+
+source-repository-package
+  type: git
+  location: https://github.com/teddy-swap/cardano-dex-contracts
+  tag: c7fc4c98029a3d299a3853b6ca762fd1314a8109
+  subdir:
+    cardano-dex-contracts-offchain
