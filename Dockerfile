@@ -40,5 +40,5 @@ RUN git clone https://github.com/teddy-swap/cardano-dex-backend.git /teddy-swap-
 WORKDIR /teddy-swap-batcher
 RUN cabal clean
 RUN cabal update
-RUN cabal install amm-executor-app
+RUN cabal build amm-executor-app
 ENTRYPOINT cabal run amm-executor-app -- /mnt/teddyswap/config.dhall
