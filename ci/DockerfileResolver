@@ -1,5 +1,0 @@
-FROM basebackend
-
-RUN bash -c 'cd cardano-dex-backend/pools-resolver && cabal v2-build'
-WORKDIR "cardano-dex-backend"
-CMD cabal run pools-resolver
