@@ -41,19 +41,4 @@ WORKDIR /teddy-swap-batcher
 RUN cabal clean
 RUN cabal update
 RUN cabal install amm-executor-app
-
-FROM ubuntu:22.04
-COPY --from=builder /root/.cabal/bin/amm-executor-app /teddy-swap-batcher/amm-executor-app
-RUN apt-get update -y && apt-get upgrade -y && apt-get install socat librocksdb-dev git liblzma-dev libnuma-dev curl automake build-essential pkg-config libffi-dev libgmp-dev libssl-dev libtinfo-dev libsystemd-dev zlib1g-dev make g++ tmux git jq wget libncursesw5 libtool autoconf libncurses-dev clang llvm-13 llvm-13-dev -y
-
-# Libsodium
-RUN git clone https://github.com/input-output-hk/libsodium
-RUN cd libsodium && git checkout 66f017f1 && ./autogen.sh && ./configure && make && make install
-ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-ENV PKG_CONFIG_PATH="/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
-
-# libsecp256k1
-RUN git clone https://github.com/bitcoin-core/secp256k1
-RUN cd secp256k1 && git checkout ac83be33 && ./autogen.sh && ./configure --enable-module-schnorrsig --enable-experimental && make && make check && make install
-
-ENTRYPOINT /teddy-swap-batcher/amm-executor-app /mnt/teddyswap/config.dhall
+ENTRYPOINT cabal run amm-executor-app -- /mnt/teddyswap/config.dhall
