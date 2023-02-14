@@ -4,6 +4,7 @@ packages:
   spectrum-prelude
   amm-executor
   ledger-sync
+  key-gen
 
 package cardano-crypto-praos
   flags: -external-libsodium-vrf
