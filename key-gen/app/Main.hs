@@ -13,6 +13,6 @@ main = do
         pass       = T.pack $ args !! 2
     putStrLn $ "secretPath" ++ secretPath
     putStrLn $ "skeyPath" ++ skeyPath
-    putStrLn $ "pass" ++ pass
+    putStrLn $ "pass" ++ (args !! 2)
     importTrustStoreFromCardano @_ @C.PaymentKey C.AsPaymentKey (SecretFile secretPath) skeyPath (KeyPass pass)
     pure ()
