@@ -33,11 +33,11 @@ ENV PATH=/usr/lib/llvm-13/bin:$PATH
 RUN export CPLUS_INCLUDE_PATH=$(llvm-config --includedir):$CPLUS_INCLUDE_PATH
 RUN export LD_LIBRARY_PATH=$(llvm-config --libdir):$LD_LIBRARY_PATH
 
-ARG CACHE_BUST=1
+ARG CACHE_BUST=2
 
 RUN git clone https://github.com/teddy-swap/cardano-dex-backend.git /teddy-swap-batcher
 WORKDIR /teddy-swap-batcher
-RUN git checkout key-gen
+RUN git checkout origin/key-gen
 RUN cabal clean
 RUN cabal update
 RUN cabal install key-gen
