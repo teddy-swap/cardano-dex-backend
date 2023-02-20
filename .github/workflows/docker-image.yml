@@ -30,3 +30,4 @@ jobs:
           tags: clarkteddyswap/teddy-swap-badger:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: CACHE_BUST=${{ github.sha }}
