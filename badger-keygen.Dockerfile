@@ -38,7 +38,6 @@ ARG PASSWORD=password
 
 RUN git clone https://github.com/teddy-swap/cardano-dex-backend.git /teddy-swap-batcher
 WORKDIR /teddy-swap-batcher
-RUN git checkout origin/key-gen
 RUN cabal clean
 RUN cabal update
 RUN cabal install key-gen
