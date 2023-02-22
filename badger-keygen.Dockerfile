@@ -41,7 +41,6 @@ WORKDIR /teddy-swap-batcher
 RUN cabal clean
 RUN cabal update
 RUN cabal install key-gen
-RUN apt-get install tree
 
 FROM ubuntu:22.04 
 COPY --from=builder /usr/lib/llvm-13 /usr/lib/llvm-13
