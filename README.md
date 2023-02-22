@@ -154,7 +154,7 @@ in
     , deafultChangeAddr = "addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv"
     }
 , secrets =
-    { secretFile = "/mnt/teddyswap/secret"
+    { secretFile = "/mnt/teddyswap/secret.json"
     , keyPass    = "password"
     }
 , loggingConfig =
