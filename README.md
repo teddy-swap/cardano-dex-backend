@@ -165,7 +165,7 @@ in
 }
 ```
 
-Change `addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv` to your newly Generated cardano wallet address:
+Change `addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv` to your newly generated cardano wallet address:
 
 ```haskell
 , txAssemblyConfig =
