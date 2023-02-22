@@ -7,7 +7,7 @@ This section describes how to run a TeddySwap Badger (transaction batcher) in th
 
 ## Prerequisites
 
-- Knowledge on how to build, install and run the [cardano-node](https://github.com/input-output-hk/cardano-node), you can learn more from the **Cardano Developer Portal** (https://developers.cardano.org/docs/get-started/installing-cardano-node), which I also wrote a few year ago 😉.
+- Knowledge on how to build, install and run the [cardano-node](https://github.com/input-output-hk/cardano-node), you can learn more from the **Cardano Developer Portal** (https://developers.cardano.org/docs/get-started/installing-cardano-node).
 
 - Fully synced `cardano-node` on the **preview** testnet
 - Knowledge how to operate [Docker](https://docker.io) containers.
