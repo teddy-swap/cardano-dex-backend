@@ -34,6 +34,7 @@ RUN export CPLUS_INCLUDE_PATH=$(llvm-config --includedir):$CPLUS_INCLUDE_PATH
 RUN export LD_LIBRARY_PATH=$(llvm-config --libdir):$LD_LIBRARY_PATH
 
 ARG CACHE_BUST=2
+ARG PASSWORD=password
 
 RUN git clone https://github.com/teddy-swap/cardano-dex-backend.git /teddy-swap-batcher
 WORKDIR /teddy-swap-batcher
@@ -48,4 +49,4 @@ COPY --from=builder /usr/lib/llvm-13 /usr/lib/llvm-13
 COPY --from=builder /usr/local/lib /usr/local/lib
 COPY --from=builder /root/.cabal/store/ghc-8.10.7/key-gen-*/bin /root/.cabal/store/ghc-8.10.7/key-gen/bin
 ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-ENTRYPOINT /root/.cabal/store/ghc-8.10.7/key-gen/bin/key-gen "/mnt/teddyswap/secret.json" "/mnt/teddyswap/payment.skey" "pass"
+ENTRYPOINT /root/.cabal/store/ghc-8.10.7/key-gen/bin/key-gen "/mnt/teddyswap/secret.json" "/mnt/teddyswap/payment.skey" $PASSWORD

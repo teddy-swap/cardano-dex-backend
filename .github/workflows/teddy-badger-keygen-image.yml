@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["key-gen"]
+    branches: ["master"]
   pull_request:
     branches: ["master"]
 
@@ -23,7 +23,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          file: ./Badger-Keygen
+          file: ./badger-keygen.Dockerfile
           tags: clarkteddyswap/teddy-badger-keygen:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
