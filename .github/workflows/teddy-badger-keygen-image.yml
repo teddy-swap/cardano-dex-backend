@@ -27,3 +27,4 @@ jobs:
           tags: clarkteddyswap/teddy-badger-keygen:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          build-args: CACHE_BUST=${{ github.sha }}
