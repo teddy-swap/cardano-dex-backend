@@ -1,6 +1,6 @@
 # TeddySwap Badger
 
-# Running the 🧸 TeddySwap Badger 🦡
+# Running the 🧸 TeddySwap Badger 🍯 🦡
 
 This section describes how to run a TeddySwap Badger (transaction batcher) in the Cardano Preview Testnet.
 
