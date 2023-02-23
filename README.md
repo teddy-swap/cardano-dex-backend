@@ -1,6 +1,6 @@
 # TeddySwap Badger
 
-# Running the 🧸 TeddySwap Badger 🦡
+# Running the 🧸 TeddySwap Badger 🍯 🦡
 
 This section describes how to run a TeddySwap Badger (transaction batcher) in the Cardano Preview Testnet.
 
@@ -154,7 +154,7 @@ in
     , deafultChangeAddr = "addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv"
     }
 , secrets =
-    { secretFile = "/mnt/teddyswap/secret"
+    { secretFile = "/mnt/teddyswap/secret.json"
     , keyPass    = "password"
     }
 , loggingConfig =
