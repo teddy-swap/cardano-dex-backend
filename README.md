@@ -33,7 +33,7 @@ cardano-cli address build \
 --testnet-magic 2
 ```
 
-> Please make sure your wallet address contains a little amount of ADA in it to process transactions!
+> Please make sure your wallet address contains some amount of ADA in it to process transactions, 100 ADA should do!
 
 Next is to move everything into one directory, for example:
 
