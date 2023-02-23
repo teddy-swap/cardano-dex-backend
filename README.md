@@ -45,7 +45,7 @@ badger-volume
 Once that is set, run the wallet secret generator via `docker`
 
 ```sh
-docker run -v $(pwd):/mnt/teddyswap clarkteddyswap/teddy-badger-keygen:74028e5b73601f2bd3ee4048997720799fd11a47
+docker run -v $(pwd):/mnt/teddyswap clarkteddyswap/teddy-badger-keygen:35aafe091524deeb05179fe348e285072b800a13
 ```
 
 Where `$(pwd)` points to the directory of your `badger-volume` or the directoy that contains the `cardano-cli` keys.
