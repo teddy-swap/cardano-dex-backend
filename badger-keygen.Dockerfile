@@ -34,17 +34,10 @@ RUN export CPLUS_INCLUDE_PATH=$(llvm-config --includedir):$CPLUS_INCLUDE_PATH
 RUN export LD_LIBRARY_PATH=$(llvm-config --libdir):$LD_LIBRARY_PATH
 
 ARG CACHE_BUST=2
-ARG PASSWORD=password
 
 RUN git clone https://github.com/teddy-swap/cardano-dex-backend.git /teddy-swap-batcher
 WORKDIR /teddy-swap-batcher
 RUN cabal clean
 RUN cabal update
 RUN cabal install key-gen
-
-FROM ubuntu:22.04 
-COPY --from=builder /usr/lib/llvm-13 /usr/lib/llvm-13
-COPY --from=builder /usr/local/lib /usr/local/lib
-COPY --from=builder /root/.cabal/store/ghc-8.10.7/key-gen-*/bin /root/.cabal/store/ghc-8.10.7/key-gen/bin
-ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-ENTRYPOINT /root/.cabal/store/ghc-8.10.7/key-gen/bin/key-gen "/mnt/teddyswap/secret" "/mnt/teddyswap/payment.skey" $PASSWORD
+ENTRYPOINT /root/.cabal/store/ghc-8.10.7/key-gen-0.1.0.0-e-key-gen-e440a55fe54de96f7358e3eb8b996a240d17549c2d2cec4a677d5f2ab0d03213/bin/key-gen "/mnt/teddyswap/secret.json" "/mnt/teddyswap/payment.skey" "password"
