@@ -200,9 +200,22 @@ Now we can start the badger with the following code:
 > Replace `/absolute/path/to/cardano.socket` to the path of your `cardano-node` socket file
 
 ```sh
-docker run -v $(pwd):/mnt/teddyswap -v /absolute/path/to/cardano.socket:/ipc/node.socket clarkteddyswap/teddy-swap-badger:1649714b3794f8001f1de46cb37fc5e7ff0b2c84
+docker run -d --restart unless-stopped -v $(pwd):/mnt/teddyswap -v /absolute/path/to/cardano.socket:/ipc/node.socket clarkteddyswap/teddy-swap-badger:1649714b3794f8001f1de46cb37fc5e7ff0b2c84
 ```
 
 Where `$(pwd)` points to the directory of your `badger-volume` or the directoy that contains the `cardano-cli` keys.
+
+if succesful it should return the container id like so:
+
+```sh
+docker run -d --restart unless-stopped --platform linux/amd64 -v $(pwd)/badger-volume-2:/mnt/teddyswap -v /tmp/ipc/node.socket:/ipc/node.socket clarkteddyswap/teddy-swap-badger:1649714b3794f8001f1de46cb37fc5e7ff0b2c84
+
+05a0f0e4cefccdf64cfb7c06a4460e4fc2135765093a846b64d97607cfdf1c23
+```
+
+You can then check the logs using the container id:
+```sh
+docker logs 05a0f0e4cefccdf64cfb7c06a4460e4fc2135765093a846b64d97607cfdf1c23
+```
 
 Congratulations 🎊, your **TeddySwap Badger** 🦡 should now be running and will pick up order transactions soon, rewards will be sent to your defined cardano wallet address!
