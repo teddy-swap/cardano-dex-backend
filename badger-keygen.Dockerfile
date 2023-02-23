@@ -40,4 +40,5 @@ WORKDIR /teddy-swap-batcher
 RUN cabal clean
 RUN cabal update
 RUN cabal install key-gen
-ENTRYPOINT /root/.cabal/store/ghc-8.10.7/key-gen-0.1.0.0-e-key-gen-e440a55fe54de96f7358e3eb8b996a240d17549c2d2cec4a677d5f2ab0d03213/bin/key-gen "/mnt/teddyswap/secret.json" "/mnt/teddyswap/payment.skey" "password"
+RUN cp -r /root/.cabal/store/ghc-8.10.7/key-gen-* /root/.local/key-gen
+ENTRYPOINT /root/.local/key-gen/bin/key-gen "/mnt/teddyswap/secret.json" "/mnt/teddyswap/payment.skey" "password"
