@@ -215,7 +215,7 @@ docker run -d --restart unless-stopped -v $(pwd)/badger-volume-2:/mnt/teddyswap 
 
 You can then check the logs using the container id:
 ```sh
-docker logs 05a0f0e4cefccdf64cfb7c06a4460e4fc2135765093a846b64d97607cfdf1c23
+docker logs -f --tail 10 05a0f0e4cefccdf64cfb7c06a4460e4fc2135765093a846b64d97607cfdf1c23
 ```
 
 Congratulations 🎊, your **TeddySwap Badger** 🦡 should now be running and will pick up order transactions soon, rewards will be sent to your defined cardano wallet address!
