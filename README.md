@@ -50,9 +50,9 @@ Once that is set, run the wallet secret generator via `docker`
 docker run -v $(pwd):/mnt/teddyswap clarkteddyswap/teddy-badger-keygen:patch-1
 ```
 
-Where `$(pwd)` points to the directory of your `badger-volume` or the directoy that contains the `cardano-cli` keys.
+Where `$(pwd)` points to the directory of your `badger-volume` or the directory that contains the `cardano-cli` keys.
 
-If succesfull you should see a new file has been created `secret.json`.
+If succesful you should see a new file has been created `secret.json`.
 
 Your `badger-volume` directory should now look like this:
 
