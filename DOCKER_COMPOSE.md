@@ -12,11 +12,21 @@ You can create such folder by issuing
 
 `mkdir -p /var/lib/cardano/preview`
 
-We are now ready to launch the stack of node+badger. We can do so by simply changing dir into `docker`
-and then executing
+The next step is to set the environmental variable that the node+badger will use. In order to do so we need to update the
+`.env` file of which you can find an example in [./docker/.env](./docker/.env).
+
+It should look something like
 
 ```shell
-docker compose -e CARDANO_NODE_DATA_FOLDER=/var/lib/cardano/preview -e BADGER_VOLUME=<path_to_badger_volume> -d up
+CARDANO_NODE_DATA_FOLDER=/var/lib/cardano/preview
+
+BADGER_VOLUME=<path_to_badger_volume>
+```
+
+Update these variables according to your setup. Once done, you can launch your badger as follows
+
+```shell
+docker compose -d up
 ```
 
 It is possible to specify additional environmental variable:

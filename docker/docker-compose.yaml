@@ -8,6 +8,8 @@ services:
     volumes:
       - ${CARDANO_NODE_DATA_FOLDER}:/data
       - ipc:/ipc
+    healthcheck:
+      test:
   badger:
     image: "clarkteddyswap/teddy-swap-badger:${TEDDY_SWAP_BADGER_VERSION:-1649714b3794f8001f1de46cb37fc5e7ff0b2c84}"
     depends_on:
