@@ -13,8 +13,8 @@ in
     }
 , eventSourceConfig =
     { startAt =
-        { slot = 10529622
-        , hash = "b8e3eb3ed62997dfe39d780a8b57c57dc2a17c6776d05d662a5b17d0ce65c25f"
+        { slot = 9113273
+        , hash = "427d8bf518d376d53627dd83302a000213454642e97d2eeddc19cdcc89abfe8b"
         }
     }
 , networkConfig =
@@ -53,11 +53,11 @@ in
 , txAssemblyConfig =
     { feePolicy         = FeePolicy.Balance
     , collateralPolicy  = CollateralPolicy.Cover
-    , deafultChangeAddr = "addr_test1vrjsaysql0jlc68su2z7k4hd6g457jmqw9js7slv3e9maxqt7h0cl"
+    , deafultChangeAddr = "addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv"
     }
 , secrets =
-    { secretFile = "/mnt/teddyswap/secret.json"
-    , keyPass    = "password"
+    { secretFile = "/mnt/teddyswap/secret"
+    , keyPass    = "test1234"
     }
 , loggingConfig =
     { rootLogLevel   = LogLevel.Info
