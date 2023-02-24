@@ -49,4 +49,4 @@ COPY --from=builder /usr/local/lib /usr/local/lib
 COPY --from=builder /root/.cabal/store/ghc-8.10.7 /root/.cabal/store/ghc-8.10.7
 COPY --from=builder /root/.cabal/bin /root/.cabal/bin
 ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-ENTRYPOINT ls -hal /root/.cabal/store/ghc-8.10.7 && /root/.cabal/bin/amm-executor-app "/mnt/teddyswap/config.dhall"
+ENTRYPOINT /root/.cabal/bin/amm-executor-app "/mnt/teddyswap/config.dhall"
