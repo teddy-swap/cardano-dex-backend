@@ -20,5 +20,3 @@ services:
       - ipc:/ipc
 volumes:
   ipc: {}
-
- #  https://devopscell.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html

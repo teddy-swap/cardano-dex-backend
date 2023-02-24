@@ -19,6 +19,10 @@ It should look something like
 
 ```shell
 CARDANO_NODE_DATA_FOLDER=/var/lib/cardano/preview
+# preprod
+# CARDANO_TESTNET_MAGIC=1
+# preview
+CARDANO_TESTNET_MAGIC=2
 
 BADGER_VOLUME=<path_to_badger_volume>
 ```
@@ -34,4 +38,3 @@ It is possible to specify additional environmental variable:
 * CARDANO_NODE_VERSION: the version of the cardano node image to use
 * NETWORK: which network to use, it can be one of mainnet, preprod, preview
 * TEDDY_SWAP_BADGER_VERSION: the version of the badger image to use
-* 
