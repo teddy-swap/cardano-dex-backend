@@ -210,7 +210,7 @@ Where `$(pwd)` points to the directory of your `badger-volume` or the directoy t
 if succesful it should return the container id like so:
 
 ```sh
-docker run -d --restart unless-stopped -v $(pwd)/badger-volume-2:/mnt/teddyswap -v /tmp/ipc/node.socket:/ipc/node.socket clarkteddyswap/teddy-swap-badger:1649714b3794f8001f1de46cb37fc5e7ff0b2c84
+docker run -d --restart unless-stopped -v $(pwd)/badger-volume:/mnt/teddyswap -v /tmp/ipc/node.socket:/ipc/node.socket clarkteddyswap/teddy-swap-badger:1649714b3794f8001f1de46cb37fc5e7ff0b2c84
 
 05a0f0e4cefccdf64cfb7c06a4460e4fc2135765093a846b64d97607cfdf1c23
 ```
