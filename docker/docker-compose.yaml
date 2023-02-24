@@ -9,11 +9,12 @@ services:
       - ${CARDANO_NODE_DATA_FOLDER}:/data
       - ipc:/ipc
     healthcheck:
-      test:
+      test: ["CMD", "cardano-cli", "query", "tip", "--testnet-magic", "${CARDANO_TESTNET_MAGIC}"]
   badger:
     image: "clarkteddyswap/teddy-swap-badger:${TEDDY_SWAP_BADGER_VERSION:-1649714b3794f8001f1de46cb37fc5e7ff0b2c84}"
     depends_on:
-      - cardano-node
+      cardano-node:
+        condition: service_healthy
     volumes:
       - ${BADGER_VOLUME}:/mnt/teddyswap
       - ipc:/ipc
