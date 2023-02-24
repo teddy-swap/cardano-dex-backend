@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  cardano-node:
+    image: "inputoutput/cardano-node:${CARDANO_NODE_VERSION:-1.35.5}"
+    environment:
+      - NETWORK=${NETWORK:-preview}
+      - CARDANO_NODE_SOCKET_PATH=/ipc/node.socket
+    volumes:
+      - ${CARDANO_NODE_DATA_FOLDER}:/data
+      - ipc:/ipc
+  badger:
+    image: "clarkteddyswap/teddy-swap-badger:${TEDDY_SWAP_BADGER_VERSION:-1649714b3794f8001f1de46cb37fc5e7ff0b2c84}"
+    depends_on:
+      - cardano-node
+    volumes:
+      - ${BADGER_VOLUME}:/mnt/teddyswap
+      - ipc:/ipc
+volumes:
+  ipc: {}
+
+ #  https://devopscell.com/docker/docker-compose/volumes/2018/01/16/volumes-in-docker-compose.html
