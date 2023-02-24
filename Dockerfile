@@ -42,9 +42,11 @@ RUN cabal clean
 RUN cabal update
 RUN cabal install amm-executor-app
 
-FROM ubuntu:22.04 
+FROM ubuntu:22.04
+RUN apt-get update -y && apt-get upgrade -y && apt-get install librocksdb-dev -y
 COPY --from=builder /usr/lib/llvm-13 /usr/lib/llvm-13
 COPY --from=builder /usr/local/lib /usr/local/lib
-COPY --from=builder /root/.cabal/store/ghc-8.10.7/amm-executor-app-*/bin /root/.cabal/store/ghc-8.10.7/amm-executor-app/bin
+COPY --from=builder /root/.cabal/store/ghc-8.10.7 /root/.cabal/store/ghc-8.10.7
+COPY --from=builder /root/.cabal/bin /root/.cabal/bin
 ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
-ENTRYPOINT /root/.cabal/store/ghc-8.10.7/amm-executor-app/bin/amm-executor-app "/mnt/teddyswap/config.dhall"
+ENTRYPOINT ls -hal /root/.cabal/store/ghc-8.10.7 && /root/.cabal/bin/amm-executor-app "/mnt/teddyswap/config.dhall"
