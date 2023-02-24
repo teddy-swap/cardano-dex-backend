@@ -40,5 +40,10 @@ WORKDIR /teddy-swap-batcher
 RUN cabal clean
 RUN cabal update
 RUN cabal install key-gen
-RUN rm -rf /root/.cabal/store/ghc-8.10.7/incoming
-ENTRYPOINT $(find /root/.cabal/store/ghc-8.10.7 -name key-gen-*)/bin/key-gen "/mnt/teddyswap/secret.json" "/mnt/teddyswap/payment.skey" "password"
+
+FROM ubuntu:22.04 
+COPY --from=builder /usr/lib/llvm-13 /usr/lib/llvm-13
+COPY --from=builder /usr/local/lib /usr/local/lib
+COPY --from=builder /root/.cabal/store/ghc-8.10.7/key-gen-*/bin /root/.cabal/store/ghc-8.10.7/key-gen/bin
+ENV LD_LIBRARY_PATH="/usr/local/lib:$LD_LIBRARY_PATH"
+ENTRYPOINT /root/.cabal/store/ghc-8.10.7/key-gen/bin/key-gen "/mnt/teddyswap/secret.json" "/mnt/teddyswap/payment.skey" "password"
