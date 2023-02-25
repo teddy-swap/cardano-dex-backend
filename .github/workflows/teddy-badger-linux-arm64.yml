@@ -27,8 +27,8 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: clarkteddyswap/teddy-swap-badger:${{ github.sha }}
+          tags: clarkteddyswap/teddy-swap-badger:${{ github.sha }}-linux-arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          build-args: CACHE_BUST=${{ github.sha }}
+          build-args: CACHE_BUST=${{ github.sha }}-linux-arm64
           platforms: linux/arm64
