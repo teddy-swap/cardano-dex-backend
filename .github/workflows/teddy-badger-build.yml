@@ -57,7 +57,7 @@ jobs:
           platforms: linux/arm64
 
   badger-keygen-amd64:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -80,7 +80,7 @@ jobs:
           platforms: linux/amd64
 
   badger-keygen-arm64:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
