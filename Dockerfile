@@ -43,7 +43,7 @@ RUN cabal update
 RUN cabal install amm-executor-app
 
 FROM ubuntu:22.04
-RUN apt-get update -y && apt-get upgrade -y && apt-get install librocksdb-dev -y
+RUN apt-get update -y && apt-get upgrade -y && apt-get install librocksdb-dev libnuma-dev -y
 COPY --from=builder /usr/lib/llvm-13 /usr/lib/llvm-13
 COPY --from=builder /usr/local/lib /usr/local/lib
 COPY --from=builder /root/.cabal/store/ghc-8.10.7 /root/.cabal/store/ghc-8.10.7
