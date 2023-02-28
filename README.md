@@ -221,3 +221,8 @@ docker logs -f --tail 10 05a0f0e4cefccdf64cfb7c06a4460e4fc2135765093a846b64d9760
 ```
 
 Congratulations 🎊, your **TeddySwap Badger** 🦡 should now be running and will pick up order transactions soon, rewards will be sent to your defined cardano wallet address!
+
+
+## Running with docker-compose
+
+Please see [DOCKER_COMPOSE.md](./DOCKER_COMPOSE.md)
