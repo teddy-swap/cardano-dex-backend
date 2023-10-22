@@ -204,6 +204,7 @@ executeOrder'
       V1 -> runOrder txRefs explorer pool order poolActionsV1 l
       V2 -> runOrder txRefs explorer pool order poolActionsV2 l
     tx    <- finalizeTx txCandidate
+    _ <- submitTx tx
     pPool <- throwMaybe (PoolNotFoundInFinalTx poolId) (extractPoolTxOut pool tx)
     let
       tracedPredictedPool = Traced
