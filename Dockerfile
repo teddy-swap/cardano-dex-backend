@@ -1,5 +1,4 @@
 FROM ubuntu:22.04 as builder
-
 RUN apt-get update -y && apt-get upgrade -y && apt-get install librocksdb-dev git liblzma-dev libnuma-dev curl automake build-essential pkg-config libffi-dev libgmp-dev libssl-dev libtinfo-dev libsystemd-dev zlib1g-dev make g++ tmux git jq wget libncursesw5 libtool autoconf libncurses-dev clang llvm-13 llvm-13-dev -y
 
 # GHCUP
@@ -45,11 +44,15 @@ RUN cp CHANGELOG.md wallet-helper/CHANGELOG.md
 RUN cabal build all
 ARG git_commit_id=master
 RUN git checkout ${git_commit_id}
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 RUN cabal update
 RUN cabal build all
 RUN cabal install amm-executor-app
 
 FROM ubuntu:22.04
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
 RUN apt-get update -y && apt-get upgrade -y && apt-get install librocksdb-dev libnuma-dev x509-util curl -y
 RUN x509-util system
 # TEST CARDANO EXPLORER
