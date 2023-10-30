@@ -43,6 +43,7 @@ RUN cp CHANGELOG.md amm-executor/CHANGELOG.md
 RUN cp CHANGELOG.md wallet-helper/CHANGELOG.md
 RUN cabal build all
 ARG git_commit_id=master
+RUN git fetch --all
 RUN git checkout ${git_commit_id}
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
