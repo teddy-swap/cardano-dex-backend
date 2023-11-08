@@ -44,10 +44,10 @@ badger-volume
 └── payment.vkey
 ```
 
-Once that is set, run the wallet secret generator via `docker`
+Once that is set, run the wallet secret/cypher generator via `docker`
 
 ```sh
-docker run -v $(pwd):/mnt/teddyswap clarkteddyswap/teddy-badger-keygen:patch-1
+docker run -v ${PATH_TO_BADGER_VOLUME}:/testWallet spectrumlabs/spectrum-wallet-helper:0.0.1.0 /testWallet/cypher.json /testWallet/payment.skey YOUR_PASSWORD
 ```
 
 Where `$(pwd)` points to the directory of your `badger-volume` or the directory that contains the `cardano-cli` keys.
@@ -183,13 +183,22 @@ in
 }
 ```
 
-Change `addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv` to your newly generated cardano wallet address:
+Change `<your cardano wallet address>` to your newly generated cardano wallet address:
 
 ```haskell
 , txAssemblyConfig =
     { feePolicy         = FeePolicy.Balance
     , collateralPolicy  = CollateralPolicy.Cover
-    , deafultChangeAddr = "addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv"
+    , deafultChangeAddr = "<your cardano wallet address>"
+    }
+```
+
+Make sure you updated key pass to your secret.json keypass.
+
+```haskell
+, secrets =
+    { secretFile = "/keys/secret.json"
+    , keyPass    = "<your key password>"
     }
 ```
 
