@@ -100,6 +100,7 @@ Finally, we create a **Badger** config file named `config.dhall` inside the `bad
 ```haskell config.dhall
 let FeePolicy = < Strict | Balance >
 let CollateralPolicy = < Ignore | Cover >
+let Network = < Mainnet | Preview >
 
 let LogLevel = < Info | Error | Warn | Debug >
 let format = "$time - $loggername - $prio - $msg" : Text
@@ -107,62 +108,77 @@ let fileHandlers = \(path : Text) -> \(level : LogLevel) -> {_1 = path, _2 = lev
 let levelOverride = \(component : Text) -> \(level : LogLevel) -> {_1 = component, _2 = level}
 in
 { mainnetMode = False
-, ledgerSyncConfig =
+, nodeSocketConfig =
     { nodeSocketPath = "/ipc/node.socket"
     , maxInFlight    = 256
     }
 , eventSourceConfig =
     { startAt =
-        { slot = 9113273
-        , hash = "427d8bf518d376d53627dd83302a000213454642e97d2eeddc19cdcc89abfe8b"
+        { slot = 32045163
+        , hash = "825568a8f7272fa8662c5a1fee156fe5dfb932ae8a47c8526b737399c9b3e836"
         }
     }
 , networkConfig =
     { cardanoNetworkId = 2
     }
 , ledgerStoreConfig =
-    { storePath       = "/mnt/teddyswap/log_ledger"
+    { storePath       = "/data/amm-executor"
     , createIfMissing = True
     }
-, nodeConfigPath = "/mnt/teddyswap/cardano/preview/config.json"
-, txsInsRefs = 
-    { swapRef  = "ab2aa12fa353fb6c1fe22c9bb796bddf8a3d2117ad993ae6e5a4d18cf1804e34#0"
-    , depositRef = "cb735015dff0039f59e16b7f1b2f4fe3d62a9a3b28e4dcc91e1828eff6788b4e#0"
-    , redeemRef  = "a67a9c3023a61a1a9e3d17c118234d095d6e8da90fcb8be9b5a9cc532b8f6b75#0"
-    , poolRef   = "19c83363f0291bbf0b3e62e2948b527e94ec0a2df5b4e2a51de85d1158632b7a#0"
-    }
+, nodeConfigPath = "/config/cardano/preview/config.json"
 , pstoreConfig =
-    { storePath       = "/mnt/teddyswap/log_pstore"
+    { storePath       = "/data/psStore"
     , createIfMissing = True
     }
 , backlogConfig =
-    { orderLifetime        = 9000
-    , orderExecTime        = 4500
-    , suspendedPropability = 50
+    { orderLifetime        = 4500
+    , orderExecTime        = 1500
+    , suspendedPropability = 0
     }
 , backlogStoreConfig =
-    { storePath       = "/mnt/teddyswap/log_backlog"
+    { storePath       = "/data/backlogStore"
     , createIfMissing = True
     }
-, explorerConfig =
-    { explorerUri = "https://8081-parallel-guidance-uagipf.us1.demeter.run/"
+, utxoStoreConfig =
+    { utxoStorePath   = "/data/utxoStore"
+    , createIfMissing = True
     }
-, txSubmitConfig =
-    { nodeSocketPath = "/ipc/node.socket"
+, txsInsRefs =
+    { swapRef = "81bdfd89f3c8ff1a23dbe70af2db399ad0ed028b36a41974662a2cf8cda3c7c3#0"
+    , depositRef = "77186dc10826227acd5e4a48e636bd3b11d5f39cc051d794540a7125903e157c#0"
+    , redeemRef = "2266866d4d85cd582a34d27638a6eeb885cc4fb96fee230c86720e1f3f9eb0a0#0"
+    , poolV1Ref = "64747d26baba95016a42c078360a431bb74d603f3f2582eb1b77d5dcfd53f128#0"
+    , poolV2Ref = "64747d26baba95016a42c078360a431bb74d603f3f2582eb1b77d5dcfd53f128#0"
+    }
+, scriptsConfig =
+    { swapScriptPath    = "/scripts/swap.uplc"
+    , depositScriptPath = "/scripts/deposit.uplc"
+    , redeemScriptPath  = "/scripts/redeem.uplc"
+    , poolV1ScriptPath  = "/scripts/pool.uplc"
+    , poolV2ScriptPath  = "/scripts/pool.uplc"
+    }
+, explorerConfig =
+    { explorerUri = "https://80-hallowed-priority-28uow9.us1.demeter.run"
+    , network = Network.Preview
     }
 , txAssemblyConfig =
-    { feePolicy         = FeePolicy.Balance
+    { feePolicy         = FeePolicy.Strict
     , collateralPolicy  = CollateralPolicy.Cover
-    , deafultChangeAddr = "addr_test1vqth7nmwalquyp4n9vednffe3rfffwluyupp8guddwzkv5cwercpv"
+    , deafultChangeAddr = "<your cardano wallet address>"
     }
 , secrets =
-    { secretFile = "/mnt/teddyswap/secret.json"
-    , keyPass    = "password"
+    { secretFile = "/keys/secret.json"
+    , keyPass    = "<your key password>"
     }
 , loggingConfig =
-    { rootLogLevel   = LogLevel.Info
-    , fileHandlers   = [fileHandlers "/dev/null" LogLevel.Info]
+    { rootLogLevel   = LogLevel.Debug
+    , fileHandlers   = [fileHandlers "/dev/stdout" LogLevel.Debug]
     , levelOverrides = [] : List { _1 : Text, _2 : LogLevel }
+    }
+, unsafeEval =
+    { unsafeTxFee = +320000
+    , exUnits = 165000000
+    , exMem = 530000
     }
 }
 ```
@@ -202,22 +218,20 @@ Now we can start the badger with the following code:
 > Replace `/absolute/path/to/cardano.socket` to the path of your `cardano-node` socket file
 
 ```sh
-docker run -d --restart unless-stopped -v $(pwd):/mnt/teddyswap -v /absolute/path/to/cardano.socket:/ipc/node.socket clarkteddyswap/teddy-swap-badger:1649714b3794f8001f1de46cb37fc5e7ff0b2c84
+docker run -d --restart --name teddyswap-dex-backend \
+  -v $(pwd)/dcConfigs/dcSpectrumConfig.dhall:/config/batcher.dhall \
+  -v /tmp:/ipc \
+  -v $(pwd)/keys/secret.json:/keys/secret.json \
+  -e CONFIG_PATH=/config/batcher.dhall \
+  --restart on-failure \
+  clarkteddyswap/teddy-badger:6c8a8c7b589c2817dae53a08dc4d3413f4d24ff4
 ```
 
 Where `$(pwd)` points to the directory of your `badger-volume` or the directoy that contains the `cardano-cli` keys.
 
-if succesful it should return the container id like so:
-
+if succesful, You can then check the logs using the container id:
 ```sh
-docker run -d --restart unless-stopped -v $(pwd)/badger-volume:/mnt/teddyswap -v /tmp/ipc/node.socket:/ipc/node.socket clarkteddyswap/teddy-swap-badger:1649714b3794f8001f1de46cb37fc5e7ff0b2c84
-
-05a0f0e4cefccdf64cfb7c06a4460e4fc2135765093a846b64d97607cfdf1c23
-```
-
-You can then check the logs using the container id:
-```sh
-docker logs -f --tail 10 05a0f0e4cefccdf64cfb7c06a4460e4fc2135765093a846b64d97607cfdf1c23
+docker logs -f --tail 10 teddyswap-dex-backend
 ```
 
 Congratulations 🎊, your **TeddySwap Badger** 🦡 should now be running and will pick up order transactions soon, rewards will be sent to your defined cardano wallet address!
