@@ -68,34 +68,7 @@ Now we are ready to run the **Badger** 🦡, Let's go!
 
 ## Running the Badger
 
-First we need to download `cardano-node` **Preview Testnet config files**:
-
-Assuming you are inside the `badger-volume` directory:
-```sh
-mkdir -p ./cardano/preview/ && cd  ./cardano/preview/ && \
-curl https://book.world.dev.cardano.org/environments/preview/config.json --output config.json && \
-curl https://book.world.dev.cardano.org/environments/preview/byron-genesis.json --output byron-genesis.json && \
-curl https://book.world.dev.cardano.org/environments/preview/shelley-genesis.json --output shelley-genesis.json && \
-curl https://book.world.dev.cardano.org/environments/preview/alonzo-genesis.json --output alonzo-genesis.json && cd ../../
-```
-
-The `badger-volume` directory should now look like this:
-
-```
-badger-volume/
-├── cardano
-│   └── preview
-│       ├── alonzo-genesis.json
-│       ├── byron-genesis.json
-│       ├── config.json
-│       └── shelley-genesis.json
-├── payment.addr
-├── payment.skey
-├── payment.vkey
-└── secret.json
-```
-
-Finally, we create a **Badger** config file named `config.dhall` inside the `badger-volume` directory:
+We create a **Badger** config file named `config.dhall` inside the `badger-volume` directory:
 
 ```haskell config.dhall
 let FeePolicy = < Strict | Balance >
@@ -193,7 +166,7 @@ Change `<your cardano wallet address>` to your newly generated cardano wallet ad
     }
 ```
 
-Make sure you updated key pass to your secret.json keypass.
+Make sure you updated `keyPass` to your secret.json keypass.
 
 ```haskell
 , secrets =
@@ -206,12 +179,6 @@ Your `badger-volume` directory should now look like this:
 
 ```sh
 badger-volume/
-├── cardano
-│   └── preview
-│       ├── alonzo-genesis.json
-│       ├── byron-genesis.json
-│       ├── config.json
-│       └── shelley-genesis.json
 ├── config.dhall
 ├── payment.addr
 ├── payment.skey
@@ -228,15 +195,15 @@ Now we can start the badger with the following code:
 
 ```sh
 docker run -d --restart --name teddyswap-dex-backend \
-  -v $(pwd)/dcConfigs/dcSpectrumConfig.dhall:/config/batcher.dhall \
-  -v /tmp:/ipc \
+  -v $(pwd)/config.dhall:/config/batcher.dhall \
+  -v /absolute/path/to/cardano.socket:/ipc/cardano.socket \
   -v $(pwd)/keys/secret.json:/keys/secret.json \
   -e CONFIG_PATH=/config/batcher.dhall \
   --restart on-failure \
   clarkteddyswap/teddy-badger:6c8a8c7b589c2817dae53a08dc4d3413f4d24ff4
 ```
 
-Where `$(pwd)` points to the directory of your `badger-volume` or the directoy that contains the `cardano-cli` keys.
+Where `$(pwd)` points to the directory of your `badger-volume`.
 
 if succesful, You can then check the logs using the container id:
 ```sh
