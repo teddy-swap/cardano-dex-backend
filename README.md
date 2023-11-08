@@ -47,7 +47,7 @@ badger-volume
 Once that is set, run the wallet secret/cypher generator via `docker`
 
 ```sh
-docker run -v ${PATH_TO_BADGER_VOLUME}:/testWallet spectrumlabs/spectrum-wallet-helper:0.0.1.0 /testWallet/cypher.json /testWallet/payment.skey YOUR_PASSWORD
+docker run -v ${PATH_TO_BADGER_VOLUME}:/testWallet spectrumlabs/spectrum-wallet-helper:0.0.1.0 /testWallet/secret.json /testWallet/payment.skey YOUR_PASSWORD
 ```
 
 Where `$(pwd)` points to the directory of your `badger-volume` or the directory that contains the `cardano-cli` keys.
