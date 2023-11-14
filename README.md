@@ -131,7 +131,7 @@ in
     , poolV2ScriptPath  = "/scripts/pool.uplc"
     }
 , explorerConfig =
-    { explorerUri = "https://80-hallowed-priority-28uow9.us1.demeter.run"
+    { explorerUri = "https://80-faithful-argument-jp00vi.us1.demeter.run"
     , network = Network.Preview
     }
 , txAssemblyConfig =
