@@ -186,7 +186,7 @@ in
     { storePath       = "/data/amm-executor"
     , createIfMissing = True
     }
-, nodeConfigPath = "/config/cardano/preview/config.json"
+, nodeConfigPath = "/config/cardano/mainnet/mainnet-config.json"
 , pstoreConfig =
     { storePath       = "/data/psStore"
     , createIfMissing = True
