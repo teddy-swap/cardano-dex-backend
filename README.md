@@ -70,6 +70,7 @@ Now we are ready to run the **Badger** 🦡, Let's go!
 
 We create a **Badger** config file named `config.dhall` inside the `badger-volume` directory:
 
+# Testnet Config
 ```haskell config.dhall
 let FeePolicy = < Strict | Balance >
 let CollateralPolicy = < Ignore | Cover >
@@ -133,6 +134,93 @@ in
 , explorerConfig =
     { explorerUri = "https://80-faithful-argument-jp00vi.us1.demeter.run"
     , network = Network.Preview
+    }
+, txAssemblyConfig =
+    { feePolicy         = FeePolicy.Strict
+    , collateralPolicy  = CollateralPolicy.Cover
+    , deafultChangeAddr = "<your cardano wallet address>"
+    }
+, secrets =
+    { secretFile = "/keys/secret.json"
+    , keyPass    = "<your key password>"
+    }
+, loggingConfig =
+    { rootLogLevel   = LogLevel.Debug
+    , fileHandlers   = [fileHandlers "/dev/stdout" LogLevel.Debug]
+    , levelOverrides = [] : List { _1 : Text, _2 : LogLevel }
+    }
+, unsafeEval =
+    { unsafeTxFee = +320000
+    , exUnits = 165000000
+    , exMem = 530000
+    }
+}
+```
+
+# Mainnet Config
+```haskell config.dhall
+let FeePolicy = < Strict | Balance >
+let CollateralPolicy = < Ignore | Cover >
+let Network = < Mainnet | Preview >
+
+let LogLevel = < Info | Error | Warn | Debug >
+let format = "$time - $loggername - $prio - $msg" : Text
+let fileHandlers = \(path : Text) -> \(level : LogLevel) -> {_1 = path, _2 = level, _3 = format}
+let levelOverride = \(component : Text) -> \(level : LogLevel) -> {_1 = component, _2 = level}
+in
+{ mainnetMode = True
+, nodeSocketConfig =
+    { nodeSocketPath = "/ipc/node.socket"
+    , maxInFlight    = 256
+    }
+, eventSourceConfig =
+    { startAt =
+        { slot = 109076993
+        , hash = "328bac757d1b100c68e0fd8f346a1bd53ee415b94271b8b7353866a22063f7bf"
+        }
+    }
+, networkConfig =
+    { cardanoNetworkId = 2
+    }
+, ledgerStoreConfig =
+    { storePath       = "/data/amm-executor"
+    , createIfMissing = True
+    }
+, nodeConfigPath = "/config/cardano/preview/config.json"
+, pstoreConfig =
+    { storePath       = "/data/psStore"
+    , createIfMissing = True
+    }
+, backlogConfig =
+    { orderLifetime        = 4500
+    , orderExecTime        = 1500
+    , suspendedPropability = 0
+    }
+, backlogStoreConfig =
+    { storePath       = "/data/backlogStore"
+    , createIfMissing = True
+    }
+, utxoStoreConfig =
+    { utxoStorePath   = "/data/utxoStore"
+    , createIfMissing = True
+    }
+, txsInsRefs =
+    { swapRef = "fb6906c2bc39777086036f9c46c297e9d8a41ede154b398d85245a2549b4bf04#0"
+    , depositRef = "570f810fe5f8cef730587fb832bb70d8783bad711064d70fc1a378cbefdd7c94#0"
+    , redeemRef = "e33584ade2b47fb0ab697b63585fb4be935852131643981ba95acde09fe31f41#0"
+    , poolV1Ref = "cdafc4e33524e767c4d0ffde094d56fa42105dcfc9b62857974f86fd0e443c32#0"
+    , poolV2Ref = "cdafc4e33524e767c4d0ffde094d56fa42105dcfc9b62857974f86fd0e443c32#0"
+    }
+, scriptsConfig =
+    { swapScriptPath    = "/scripts/swap.uplc"
+    , depositScriptPath = "/scripts/deposit.uplc"
+    , redeemScriptPath  = "/scripts/redeem.uplc"
+    , poolV1ScriptPath  = "/scripts/pool.uplc"
+    , poolV2ScriptPath  = "/scripts/pool.uplc"
+    }
+, explorerConfig =
+    { explorerUri = "https://explorer.teddyswap.org"
+    , network = Network.Mainnet
     }
 , txAssemblyConfig =
     { feePolicy         = FeePolicy.Strict
