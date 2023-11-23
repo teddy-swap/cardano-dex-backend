@@ -70,7 +70,7 @@ Now we are ready to run the **Badger** 🦡, Let's go!
 
 We create a **Badger** config file named `config.dhall` inside the `badger-volume` directory:
 
-# Testnet Config
+## Testnet Config
 ```haskell config.dhall
 let FeePolicy = < Strict | Balance >
 let CollateralPolicy = < Ignore | Cover >
@@ -157,7 +157,7 @@ in
 }
 ```
 
-# Mainnet Config
+## Mainnet Config
 ```haskell config.dhall
 let FeePolicy = < Strict | Balance >
 let CollateralPolicy = < Ignore | Cover >
