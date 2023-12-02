@@ -282,7 +282,7 @@ Now we can start the badger with the following code:
 > Replace `/absolute/path/to/cardano.socket` to the path of your `cardano-node` socket file
 
 ```sh
-docker run -d --restart --name teddyswap-dex-backend \
+docker run -d --restart always --name teddyswap-dex-backend \
   -v $(pwd)/config.dhall:/config/batcher.dhall \
   -v /absolute/path/to/cardano.socket:/ipc/cardano.socket \
   -v $(pwd)/keys/secret.json:/keys/secret.json \
